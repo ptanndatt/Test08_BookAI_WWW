@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Quản lý sách</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<main class="page">
+    <section class="hero"><div><h1>Quản lý sách</h1><p>Admin thêm, sửa, xóa sách và upload ảnh bìa từ máy.</p><div class="hero-badges"><span>CRUD sách</span><span>Upload ảnh</span><span>Admin only</span></div></div><div class="hero-icon">🛠️</div></section>
+    <div class="action-row"><a th:href="@{/admin/books/add}" class="btn-primary">+ Thêm sách mới</a></div>
+    <section class="book-grid">
+        <div class="book-card" th:each="book : ${books}">
+            <div class="book-image-wrap"><img th:if="${book.coverImage != null}" th:src="@{${book.coverImage}}" alt="Ảnh sách"><div th:if="${book.coverImage == null}" class="no-image">📘</div></div>
+            <div class="book-info">
+                <h3 th:text="${book.title}"></h3>
+                <p class="author" th:text="'Tác giả: ' + ${book.author}"></p>
+                <p class="price" th:text="${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></p>
+                <p class="stock" th:text="'Số lượng: ' + ${book.quantity}"></p>
+                <div class="admin-actions"><a th:href="@{/admin/books/edit/{id}(id=${book.id})}" class="btn-secondary">Sửa</a><a th:href="@{/admin/books/delete/{id}(id=${book.id})}" onclick="return confirm('Bạn có chắc muốn xóa sách này?')" class="btn-danger">Xóa</a></div>
+            </div>
+        </div>
+    </section>
+</main>
+<a th:href="@{/ai}" class="ai-bubble"><span>🤖</span><div><b>Hỏi AI</b><small>Trợ lý sách</small></div></a>
+</body>
+</html>

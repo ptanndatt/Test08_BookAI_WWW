@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hỏi AI</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<main class="page chat-page">
+    <section class="chat-shell">
+        <div class="chat-header">
+            <div class="bot-avatar">🤖</div>
+            <div>
+                <h1>Trợ lý AI bán sách</h1>
+                <p>Hỏi AI để được gợi ý sách, lộ trình học và kiến thức liên quan.</p>
+            </div>
+        </div>
+
+        <div class="chat-box">
+            <div class="message bot">
+                <div class="avatar">🤖</div>
+                <div class="bubble">
+                    Xin chào! Bạn muốn học gì hôm nay? Tôi có thể gợi ý sách phù hợp cho bạn.
+                </div>
+            </div>
+
+            <div th:if="${question != null}" class="message user">
+                <div class="bubble" th:text="${question}"></div>
+                <div class="avatar">👤</div>
+            </div>
+
+            <div th:if="${answer != null}" class="message bot">
+                <div class="avatar">🤖</div>
+                <div class="bubble" th:text="${answer}"></div>
+            </div>
+        </div>
+
+        <form th:action="@{/ai}" method="post" class="chat-input">
+            <textarea name="question" placeholder="Nhập câu hỏi cho AI..." required></textarea>
+            <button type="submit">Gửi AI</button>
+        </form>
+    </section>
+</main>
+
+</body>
+</html>

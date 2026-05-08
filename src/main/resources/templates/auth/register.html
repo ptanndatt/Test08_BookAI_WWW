@@ -1,0 +1,8 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/css/style.css"><title>Đăng ký</title></head><body><div class="nav"><a href="/books">BookStore AI</a><div><a href="/books">Sách</a><a href="/ai">Hỏi AI</a><a href="/orders/my">Đơn hàng</a><a href="/admin/books">Admin</a><a href="/login">Đăng nhập</a><form th:action="@{/logout}" method="post" style="display:inline"><button class="linkbtn">Đăng xuất</button></form></div></div>
+<div class="container small"><h1>Đăng ký tài khoản User</h1>
+<div class="alert" th:if="${error}" th:text="${error}"></div>
+<form th:action="@{/register}" method="post" class="card form">
+<label>Username</label><input name="username" required>
+<label>Password</label><input name="password" type="password" required minlength="3">
+<button>Đăng ký</button><p>Đã có tài khoản? <a href="/login">Đăng nhập</a></p>
+</form></div></body></html>

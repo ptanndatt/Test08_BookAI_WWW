@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Form sách</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<main class="page">
+    <section class="card form-card">
+        <h1 th:text="${book.id == null ? 'Thêm sách mới' : 'Cập nhật sách'}"></h1>
+        <p class="sub-title">Nhập thông tin sách và chọn ảnh bìa từ máy.</p>
+        <form th:action="${book.id == null} ? @{/admin/books/add} : @{/admin/books/edit/{id}(id=${book.id})}" method="post" enctype="multipart/form-data" th:object="${book}" class="nice-form">
+            <label>Tên sách</label><input type="text" th:field="*{title}" placeholder="Nhập tên sách" required>
+            <label>Tác giả</label><input type="text" th:field="*{author}" placeholder="Nhập tên tác giả" required>
+            <label>Giá</label><input type="number" step="1000" th:field="*{price}" placeholder="Nhập giá sách" required>
+            <label>Số lượng</label><input type="number" th:field="*{quantity}" placeholder="Nhập số lượng" required>
+            <label>Ảnh bìa sách từ máy</label><input type="file" name="imageFile" accept="image/*">
+            <div th:if="${book.coverImage != null}" class="preview-box"><p>Ảnh hiện tại:</p><img th:src="@{${book.coverImage}}" alt="Ảnh sách"></div>
+            <button type="submit" class="btn-primary">Lưu sách</button>
+            <a th:href="@{/admin/books}" class="btn-secondary text-center">Quay lại</a>
+        </form>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Hỏi AI</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<main class="page chat-page">
+    <section class="chat-shell">
+        <div class="chat-header">
+            <div class="bot-avatar">🤖</div>
+            <div>
+                <h1>Trợ lý AI bán sách</h1>
+                <p>AI có thể đọc dữ liệu sách trong MySQL và trả lời câu hỏi bên ngoài bằng Gemini.</p>
+            </div>
+        </div>
+
+        <div class="chat-box">
+            <div class="message bot">
+                <div class="avatar">🤖</div>
+                <div class="bubble">
+                    Xin chào! Bạn có thể hỏi: “Sách Chí Phèo giá bao nhiêu?”, “Sách nào rẻ nhất?”, hoặc “Spring Boot là gì?”.
+                </div>
+            </div>
+
+            <div th:if="${message != null}" class="message user">
+                <div class="bubble" th:text="${message}"></div>
+                <div class="avatar">👤</div>
+            </div>
+
+            <div th:if="${answer != null}" class="message bot">
+                <div class="avatar">🤖</div>
+                <div class="bubble" th:text="${answer}"></div>
+            </div>
+        </div>
+
+        <form th:action="@{/ai}" method="post" class="chat-input">
+            <textarea name="message" placeholder="Nhập câu hỏi cho AI..." required th:text="${message}"></textarea>
+            <button type="submit">Gửi AI</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>

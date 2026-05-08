@@ -1,0 +1,10 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/css/style.css"><title>Đăng nhập</title></head><body><div class="nav"><a href="/books">BookStore AI</a><div><a href="/books">Sách</a><a href="/ai">Hỏi AI</a><a href="/orders/my">Đơn hàng</a><a href="/admin/books">Admin</a><a href="/login">Đăng nhập</a><form th:action="@{/logout}" method="post" style="display:inline"><button class="linkbtn">Đăng xuất</button></form></div></div>
+<div class="container small"><h1>Đăng nhập</h1>
+<div class="alert success" th:if="${param.registered}">Đăng ký thành công. Hãy đăng nhập.</div>
+<div class="alert" th:if="${param.error}">Sai username hoặc password.</div>
+<div class="alert success" th:if="${param.logout}">Đã đăng xuất.</div>
+<form th:action="@{/login}" method="post" class="card form">
+<label>Username</label><input name="username" required placeholder="admin hoặc user">
+<label>Password</label><input name="password" type="password" required placeholder="123456">
+<button>Đăng nhập</button><p>Chưa có tài khoản? <a href="/register">Đăng ký</a></p>
+</form><p class="hint">Tài khoản mẫu: admin/123456, user/123456</p></div></body></html>

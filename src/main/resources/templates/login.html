@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Đăng nhập</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<main class="page"><section class="card form-card"><h1>Đăng nhập</h1><p class="sub-title">Dùng admin/123456 hoặc user/123456 để test.</p><p class="success" th:if="${param.registered}">Đăng ký thành công, hãy đăng nhập.</p><p class="error" th:if="${param.error}">Sai tài khoản hoặc mật khẩu.</p><form th:action="@{/login}" method="post" class="nice-form"><label>Tên đăng nhập</label><input type="text" name="username" required><label>Mật khẩu</label><input type="password" name="password" required><button class="btn-primary" type="submit">Đăng nhập</button><a class="btn-secondary text-center" th:href="@{/register}">Tạo tài khoản User</a></form></section></main>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách sách</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<main class="page">
+    <section class="hero">
+        <div>
+            <h1>Website bán sách</h1>
+            <p>Spring Boot + Spring Security + MySQL + Spring AI Gemini</p>
+            <div class="hero-badges"><span>📘 Sách hay</span><span>🤖 AI tư vấn</span><span>🔐 Bảo mật</span></div>
+        </div>
+        <div class="hero-icon">📚</div>
+    </section>
+    <section class="search-card">
+        <form th:action="@{/books/search}" method="get" class="search-form">
+            <input type="text" name="keyword" th:value="${keyword}" placeholder="Tìm sách theo tên...">
+            <button type="submit">Tìm kiếm</button>
+        </form>
+    </section>
+    <section class="book-grid">
+        <div class="book-card" th:each="book : ${books}">
+            <div class="book-image-wrap">
+                <img th:if="${book.coverImage != null}" th:src="@{${book.coverImage}}" alt="Ảnh sách">
+                <div th:if="${book.coverImage == null}" class="no-image">📘</div>
+            </div>
+            <div class="book-info">
+                <h3 th:text="${book.title}">Tên sách</h3>
+                <p class="author" th:text="'Tác giả: ' + ${book.author}">Tác giả</p>
+                <p class="price" th:text="${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT')} + ' đ'">0 đ</p>
+                <p class="stock" th:text="'Còn lại: ' + ${book.quantity}">Còn lại</p>
+                <form th:action="@{/orders/buy/{id}(id=${book.id})}" method="post" class="buy-form">
+                    <input type="number" name="quantity" value="1" min="1">
+                    <button type="submit">Mua sách</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+<a th:href="@{/ai}" class="ai-bubble"><span>🤖</span><div><b>Hỏi AI</b><small>Tư vấn sách</small></div></a>
+</body>
+</html>

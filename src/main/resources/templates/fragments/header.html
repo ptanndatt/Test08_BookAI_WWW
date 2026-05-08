@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<body>
+<header th:fragment="header" class="topbar">
+    <div class="brand"><a th:href="@{/books}">📚 BookStore AI</a></div>
+    <nav class="nav-links">
+        <a th:href="@{/books}">Sách</a>
+        <a th:href="@{/ai}">Hỏi AI</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/orders/my}">Đơn hàng</a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/books}">Admin</a>
+        <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Đăng nhập</a>
+        <a sec:authorize="!isAuthenticated()" th:href="@{/register}">Đăng ký</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/logout}">Đăng xuất</a>
+    </nav>
+    <div class="login-status">
+        <span sec:authorize="isAuthenticated()">🟢 <b sec:authentication="name"></b></span>
+        <span sec:authorize="hasRole('ADMIN')" class="role admin-role">ADMIN</span>
+        <span sec:authorize="hasRole('USER')" class="role user-role">USER</span>
+        <span sec:authorize="!isAuthenticated()">⚪ Chưa đăng nhập</span>
+    </div>
+</header>
+</body>
+</html>

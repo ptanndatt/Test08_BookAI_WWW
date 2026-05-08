@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Đơn hàng của tôi</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<main class="page">
+    <section class="hero"><div><h1>Đơn hàng của tôi</h1><p>Xem lịch sử mua sách và trạng thái thanh toán.</p></div><div class="hero-icon">🧾</div></section>
+    <section class="order-list">
+        <div class="card order-card" th:each="order : ${orders}">
+            <h3 th:text="'Đơn hàng #' + ${order.id}"></h3>
+            <p th:text="'Ngày đặt: ' + ${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}"></p>
+            <p class="price" th:text="'Tổng tiền: ' + ${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' đ'"></p>
+            <p><span class="role user-role" th:text="${order.status}"></span></p>
+            <ul><li th:each="item : ${order.items}" th:text="${item.book.title} + ' x ' + ${item.quantity} + ' - ' + ${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></li></ul>
+        </div>
+        <div class="card" th:if="${#lists.isEmpty(orders)}"><h3>Chưa có đơn hàng</h3><p>Hãy mua một cuốn sách ở trang Sách.</p></div>
+    </section>
+</main>
+</body>
+</html>
